@@ -28,20 +28,31 @@ public class ViewZone extends JFrame {
 	
 	public ViewZone() {
 		super("Holden TEXAX");
-		setLayout(new GridLayout(7,1));
-		setSize(500,500);
-		izq = new JLabel("");
-		der = new JLabel("");
-		card1 = new JLabel("");
-		card2 = new JLabel("");
-		card3 = new JLabel("");
-		card4 = new JLabel("");
-		card5 = new JLabel("");
-		my1card = new JLabel("");
-		my2card = new JLabel("");
+		setLayout(new GridLayout(2,7));
+		setSize(1500,200);
+		izq = new JLabel("German");
+		der = new JLabel("Carlos");
+		card1 = new JLabel("c");
+		card2 = new JLabel("d");
+		card3 = new JLabel("e");
+		card4 = new JLabel("f");
+		card5 = new JLabel("g");
+		my1card = new JLabel("h");
+		my2card = new JLabel("i");
 		deal = new JButton("SEGUIR");
 		notdeal = new JButton("RETIRARSE");
 		
+		add(izq);
+		add(card1);
+		add(card2);
+		add(card3);
+		add(card4);
+		add(card5);
+		add(der);
+		add(my1card);
+		add(my2card);
+		add(deal);
+		add(notdeal);
 		
 		
 		controller = new ControllerChat(this);

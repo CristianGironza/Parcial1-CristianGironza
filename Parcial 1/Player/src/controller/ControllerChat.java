@@ -6,14 +6,14 @@ import java.awt.event.ActionListener;
 import comunication.TCPConnection;
 import comunication.TCPConnection.ConnectionEvent;
 import model.Mensaje;
-import view.ViewChat;
+import view.ViewZone;
 
 public class ControllerChat implements ActionListener, ConnectionEvent {
 	
-	private ViewChat view;
+	private ViewZone view;
 	TCPConnection connection;
 	
-	public ControllerChat(ViewChat v) {
+	public ControllerChat(ViewZone v) {
 		view = v;
 		initView();
 	}

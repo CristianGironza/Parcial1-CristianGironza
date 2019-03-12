@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import comunication.TCPConnection;
 import comunication.TCPConnection.ConnectionEvent;
-import view.ViewChat;
+import view.ViewZone;
 import view.ViewConexion;
 
 public class ControllerConexion implements ActionListener, ConnectionEvent {
@@ -41,7 +41,7 @@ public class ControllerConexion implements ActionListener, ConnectionEvent {
 		System.out.println("Conectados");
 		view.setVisible(false);
 		
-		ViewChat chat = new ViewChat();
+		ViewZone chat = new ViewZone();
 		chat.setVisible(true);
 	}
 

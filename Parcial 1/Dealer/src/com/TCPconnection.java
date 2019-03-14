@@ -16,6 +16,7 @@ public class TCPconnection {
 		if(listeners == null) listeners = new ArrayList<>();
 		connections = new ArrayList<Connection>();
 		cartas = new ArrayList<String>();
+		turno =0;
 	}
 	
 	public synchronized static TCPconnection getInstance() {
@@ -35,6 +36,7 @@ public class TCPconnection {
 	private List<Connection> connections;
 	private List<ConnectionEvent> listeners;
 	private List<String> cartas;
+	private int turno;
 	
 	
 	//Metodo del servidor
@@ -45,7 +47,7 @@ public class TCPconnection {
 				Socket socket = server.accept();
 				Connection connection = new Connection(socket);
 				connection.defineListeners(listeners);
-				connection.init();
+				connection.init(getClient()+1);
 				connections.add(connection);
 				for(int i=0 ; i<listeners.size() ; i++) listeners.get(i).onConnection();
 			}
@@ -124,14 +126,14 @@ public class TCPconnection {
 		for(int i=0;i<getClient();i++) {
 			try {
 				if(i==0) {
-					sendDirectMessage(i,connections.get(1).getSocket().getLocalAddress().getLocalHost().getHostName());
-					sendDirectMessage(i,connections.get(2).getSocket().getLocalAddress().getLocalHost().getHostName());
+					sendDirectMessage(i,""+connections.get(1).getJug());
+					sendDirectMessage(i,""+connections.get(2).getJug());
 				}else if(i==1) {
-					sendDirectMessage(i,connections.get(0).getSocket().getLocalAddress().getLocalHost().getHostName());
-					sendDirectMessage(i,connections.get(2).getSocket().getLocalAddress().getLocalHost().getHostName());
+					sendDirectMessage(i,""+connections.get(0).getJug());
+					sendDirectMessage(i,""+connections.get(2).getJug());
 				}else if(i==2) {
-					sendDirectMessage(i,connections.get(0).getSocket().getLocalAddress().getLocalHost().getHostName());
-					sendDirectMessage(i,connections.get(1).getSocket().getLocalAddress().getLocalHost().getHostName());
+					sendDirectMessage(i,""+connections.get(0).getJug());
+					sendDirectMessage(i,""+connections.get(1).getJug());
 				}
 			}catch (Exception e) {
 				// TODO: handle exception
@@ -139,5 +141,7 @@ public class TCPconnection {
 				
 		
 	}
+		sendBroadcast("Turno"+turno);
+		turno++;
 	}
 }

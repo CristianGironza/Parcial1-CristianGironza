@@ -3,6 +3,8 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
 import comunication.TCPConnection;
 import comunication.TCPConnection.ConnectionEvent;
 import view.ViewZone;
@@ -64,7 +66,7 @@ public class ControllerPlay implements ActionListener, ConnectionEvent {
 				view.getMp().getMy2card().setText(re[1]);
 			}
 		}else if(msj.contains("Turno")) {
-			
+			JOptionPane.showMessageDialog(null, msj);
 		}else {
 			if(view.getPt().getIzq().getText().equals("")) {
 				view.getPt().getIzq().setText(msj);

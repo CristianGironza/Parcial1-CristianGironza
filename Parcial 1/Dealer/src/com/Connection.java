@@ -33,17 +33,23 @@ public class Connection {
 	private Emisor emisor;
 	private Socket socket;
 	private List<ConnectionEvent> listeners;
+	private int jug;
 	
+	public int getJug() {
+		return jug;
+	}
+
 	public void defineListeners(List<ConnectionEvent> listeners) {
 		this.listeners = listeners;
 	}
 	
-	public void init() {
+	public void init(int j) {
 		try {
 			receptor = new Receptor(socket.getInputStream());
 			receptor.defineListeners(listeners);
 			receptor.start();
 			emisor = new Emisor(socket.getOutputStream());
+			jug = j;
 		}catch (Exception e) {
 			
 		}

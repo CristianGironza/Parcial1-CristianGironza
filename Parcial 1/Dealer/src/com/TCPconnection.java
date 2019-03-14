@@ -76,7 +76,7 @@ public class TCPconnection {
 	}
 	
 	public String GenerateCard() {
-		String[] tipo = {"T,C,P,D"};
+		String[] tipo = {"T","C","P","D"};
 		Random r = new Random();
 		boolean repetida = true;
 		String numero ="";
@@ -92,7 +92,7 @@ public class TCPconnection {
 				numero = "k";
 			}
 			
-			numero=numero+tipo[r.nextInt(4)];
+			numero=numero+(tipo[r.nextInt(4)]);
 			if(!cartas.contains(numero)) {
 				repetida = false;
 			}
@@ -102,10 +102,17 @@ public class TCPconnection {
 	}
 	
 	public void Start() {
-		sendBroadcast("p"+GenerateCard());
-		sendBroadcast("p"+GenerateCard());
-		sendBroadcast("p"+GenerateCard());
+		for(int i=0;i<3;i++) {
+			sendBroadcast("p"+GenerateCard());
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		for(int i=0;i<getClient();i++) {
+			sendDirectMessage(i, "m"+GenerateCard());
 			sendDirectMessage(i, "m"+GenerateCard());
 		}
 	}

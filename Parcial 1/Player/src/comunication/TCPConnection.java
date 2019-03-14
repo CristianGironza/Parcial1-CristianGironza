@@ -34,7 +34,12 @@ public class TCPConnection {
 	private ServerSocket server;
 	private Emisor emisor;
 	private Receptor receptor;
+	private boolean turno;
 	
+	public boolean isTurno() {
+		return turno;
+	}
+
 	//Metodo del servidor
 	public void waitForConnection(int port) {
 		try {
@@ -63,6 +68,7 @@ public class TCPConnection {
 	//Metodo del cliente
 	public void connect(String ip, int port) {
 		try {
+			turno = false;
 			socket = new Socket(ip, port);
 			if(listeners==null) {
 				listeners = new ArrayList<TCPConnection.ConnectionEvent>();

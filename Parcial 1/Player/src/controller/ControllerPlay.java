@@ -25,17 +25,13 @@ public class ControllerPlay implements ActionListener, ConnectionEvent {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource().equals(view.getMp().getDeal())) {
-			
-		}else if(e.getSource().equals(view.getMp().getNotdeal())) {
-			
+		if(connection.isTurno()) {
+			if(e.getSource().equals(view.getMp().getDeal())) {
+				
+			}else if(e.getSource().equals(view.getMp().getNotdeal())) {
+				
+			}
 		}
-//		if(e.getSource().equals(view.getBtnEnviar())) {
-//			Mensaje msj = new Mensaje(view.getTfEntrada().getText());
-//			connection.sendMessage(msj.toString());
-//			view.getTaMensajes().append(view.getTfEntrada().getText()+"\n");
-//			view.getTfEntrada().setText("");
-//		}
 	}
 
 	@Override
@@ -46,8 +42,29 @@ public class ControllerPlay implements ActionListener, ConnectionEvent {
 
 	@Override
 	public void onMessage(String msj) {
-//		System.out.println(">>ControllerChat"+msj);
-//		Mensaje recibido = Mensaje.fromJson(msj.trim());
-//		view.getTaMensajes().append(recibido.getMensaje()+":"+recibido.getFecha()+"\n");
+		String[] re = new String[2];
+		if(msj.contains("p")) {
+			re = msj.split("p");
+			if(view.getPt().getCard1().getText().equals("")) {
+				view.getPt().getCard1().setText(re[1]);
+			}else if(view.getPt().getCard2().getText().equals("")) {
+				view.getPt().getCard2().setText(re[1]);
+			}else if(view.getPt().getCard3().getText().equals("")) {
+				view.getPt().getCard3().setText(re[1]);
+			}else if(view.getPt().getCard4().getText().equals("")) {
+				view.getPt().getCard4().setText(re[1]);
+			}else if(view.getPt().getCard5().getText().equals("")) {
+				view.getPt().getCard5().setText(re[1]);
+			}
+		}else if(msj.contains("m")) {
+			re = msj.split("m");
+			if(view.getMp().getMy1card().getText().equals("")) {
+				view.getMp().getMy1card().setText(re[1]);
+			}else if(view.getMp().getMy2card().getText().equals("")) {
+				view.getMp().getMy2card().setText(re[1]);
+		}else {
+			
+			}
+		}
 	}
 }

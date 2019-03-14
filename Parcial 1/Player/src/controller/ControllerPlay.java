@@ -62,8 +62,14 @@ public class ControllerPlay implements ActionListener, ConnectionEvent {
 				view.getMp().getMy1card().setText(re[1]);
 			}else if(view.getMp().getMy2card().getText().equals("")) {
 				view.getMp().getMy2card().setText(re[1]);
-		}else {
+			}
+		}else if(msj.contains("Turno")) {
 			
+		}else {
+			if(view.getPt().getIzq().getText().equals("")) {
+				view.getPt().getIzq().setText(msj);
+			}else {
+				view.getPt().getDer().setText(msj);
 			}
 		}
 	}

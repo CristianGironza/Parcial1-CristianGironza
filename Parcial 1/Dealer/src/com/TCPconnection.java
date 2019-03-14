@@ -3,6 +3,7 @@ package com;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -27,6 +28,10 @@ public class TCPconnection {
 	//Global
 	
 	private ServerSocket server;
+	public List<Connection> getConnections() {
+		return connections;
+	}
+
 	private List<Connection> connections;
 	private List<ConnectionEvent> listeners;
 	private List<String> cartas;
@@ -115,5 +120,24 @@ public class TCPconnection {
 			sendDirectMessage(i, "m"+GenerateCard());
 			sendDirectMessage(i, "m"+GenerateCard());
 		}
+		
+		for(int i=0;i<getClient();i++) {
+			try {
+				if(i==0) {
+					sendDirectMessage(i,connections.get(1).getSocket().getLocalAddress().getLocalHost().getHostName());
+					sendDirectMessage(i,connections.get(2).getSocket().getLocalAddress().getLocalHost().getHostName());
+				}else if(i==1) {
+					sendDirectMessage(i,connections.get(0).getSocket().getLocalAddress().getLocalHost().getHostName());
+					sendDirectMessage(i,connections.get(2).getSocket().getLocalAddress().getLocalHost().getHostName());
+				}else if(i==2) {
+					sendDirectMessage(i,connections.get(0).getSocket().getLocalAddress().getLocalHost().getHostName());
+					sendDirectMessage(i,connections.get(1).getSocket().getLocalAddress().getLocalHost().getHostName());
+				}
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+				
+		
+	}
 	}
 }

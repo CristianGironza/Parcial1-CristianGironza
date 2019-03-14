@@ -9,6 +9,22 @@ import com.TCPconnection.ConnectionEvent;
 
 public class Connection {
 
+	public Receptor getReceptor() {
+		return receptor;
+	}
+
+	public Emisor getEmisor() {
+		return emisor;
+	}
+
+	public Socket getSocket() {
+		return socket;
+	}
+
+	public List<ConnectionEvent> getListeners() {
+		return listeners;
+	}
+
 	public Connection(Socket socket2) {
 		socket = socket2;
 	}

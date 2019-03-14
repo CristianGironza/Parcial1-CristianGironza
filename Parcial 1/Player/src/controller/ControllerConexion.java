@@ -39,7 +39,6 @@ public class ControllerConexion implements ActionListener, ConnectionEvent {
 	@Override
 	public void onConnection() {
 		view.setVisible(false);
-		
 		ViewZone chat = new ViewZone();
 		chat.setVisible(true);
 	}

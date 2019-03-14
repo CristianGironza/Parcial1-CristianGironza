@@ -4,10 +4,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-import java.util.Map.Entry;
 
 public class TCPconnection {
 	
@@ -15,7 +13,7 @@ public class TCPconnection {
 	
 	private TCPconnection() {
 		if(listeners == null) listeners = new ArrayList<>();
-		connections = new HashMap<String, Connection>();
+		connections = new ArrayList<Connection>();
 		cartas = new ArrayList<String>();
 	}
 	
@@ -29,7 +27,7 @@ public class TCPconnection {
 	//Global
 	
 	private ServerSocket server;
-	private HashMap<String, Connection> connections;
+	private List<Connection> connections;
 	private List<ConnectionEvent> listeners;
 	private List<String> cartas;
 	
@@ -38,14 +36,13 @@ public class TCPconnection {
 	public void waitForConnection(int port) {
 		try {
 			server = new ServerSocket(port);
-			
 			while(true) {
 				Socket socket = server.accept();
 				Connection connection = new Connection(socket);
 				connection.defineListeners(listeners);
 				connection.init();
-				connections.put(connection.getUuid(), connection);
-				
+				connections.add(connection);
+				//connections.put(connection.getUuid(), connection);
 				for(int i=0 ; i<listeners.size() ; i++) listeners.get(i).onConnection();
 			}
 		} catch (IOException e) {
@@ -56,7 +53,7 @@ public class TCPconnection {
 	//Hacer la clase sea observable
 	public interface ConnectionEvent{
 		void onConnection();
-		void onMessage(String uuid,String msj);
+		void onMessage(int player,String msj);
 	}
 	
 	
@@ -69,17 +66,14 @@ public class TCPconnection {
 	}
 
 	public void sendBroadcast(String line) {
-		for(String key :connections.keySet()) {
-		connections.get(key).sendMessage(line);
+		for(int i=0; i<getClient();i++) {
+			connections.get(i).sendMessage(line);
 		}
 	}
 
-	public Connection getConnectionById(String uuid) {
-		return connections.get(uuid);
-	}
 
-	public void sendDirectMessage(String remitente, String destinatario, String mensaje) {
-		getConnectionById(destinatario).sendMessage(remitente+":"+mensaje);
+	public void sendDirectMessage(int player, String mensaje) {
+		connections.get(player).sendMessage(mensaje);
 	}
 	
 	public String GenerateCard() {
@@ -105,5 +99,9 @@ public class TCPconnection {
 			}
 		}
 		return numero;
+	}
+	
+	public void Start() {
+		
 	}
 }

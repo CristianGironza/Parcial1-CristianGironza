@@ -2,6 +2,8 @@ package launcher;
 
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import com.TCPconnection;
 import com.TCPconnection.ConnectionEvent;
 
@@ -21,31 +23,17 @@ public class Main implements ConnectionEvent {
 		
 		new Thread(()->manager.waitForConnection(5000)).start();
 		
-		Scanner s = new Scanner(System.in);
-		while(true) {
-			String line = s.nextLine();
-			manager.sendBroadcast(line);
-			
-		}
 	}
 
 	@Override
 	public void onConnection() {
 		if(manager.getClient()==3) {
-			System.out.println("listos para Jugar");
+			JOptionPane.showMessageDialog(null, "SALA LLENA");
 		}
 	}
 
 	@Override
-	public void onMessage(String uuid, String msj) {
-		if(msj.equals("myid")) {
-			manager.getConnectionById(uuid).sendMessage(uuid);
-			
-		}else if(msj.contains("::")){
-			String[] data = msj.split("::");
-			manager.sendDirectMessage(uuid, data[0], data[1]);
-		}else {
-			System.out.println(uuid +":"+msj);
-		}
+	public void onMessage(int player, String msj) {
+		
 	}
 }

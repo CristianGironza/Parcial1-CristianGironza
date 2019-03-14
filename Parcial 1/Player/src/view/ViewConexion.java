@@ -17,7 +17,7 @@ public class ViewConexion extends JFrame {
 	public ViewConexion() {
 		super("Conexión cliente");
 		setLayout(new GridLayout(0,1));
-		setSize(500,500);
+		setSize(100,100);
 		setLocationRelativeTo(null);
 		btnConectar = new JButton("Conectar");
 		add(btnConectar);

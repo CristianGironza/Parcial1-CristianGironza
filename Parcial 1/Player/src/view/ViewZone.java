@@ -14,8 +14,7 @@ public class ViewZone extends JFrame {
 	public ViewZone() {
 		super("Holden TEXAX");
 		setLayout(new BorderLayout());
-		setSize(1500,200);
-		setUndecorated(true);
+		setSize(1000,200);
 		pt=new PanelTable();
 		add(pt,BorderLayout.CENTER);
 		mp = new MyPanel();

@@ -10,7 +10,6 @@ import com.TCPconnection.ConnectionEvent;
 public class Connection {
 
 	public Connection(Socket socket2) {
-		uuid = UUID.randomUUID().toString();
 		socket = socket2;
 	}
 	
@@ -18,7 +17,6 @@ public class Connection {
 	private Emisor emisor;
 	private Socket socket;
 	private List<ConnectionEvent> listeners;
-	private String uuid;
 	
 	public void defineListeners(List<ConnectionEvent> listeners) {
 		this.listeners = listeners;
@@ -27,7 +25,6 @@ public class Connection {
 	public void init() {
 		try {
 			receptor = new Receptor(socket.getInputStream());
-			receptor.setUuid(uuid);
 			receptor.defineListeners(listeners);
 			receptor.start();
 			emisor = new Emisor(socket.getOutputStream());
@@ -49,7 +46,4 @@ public class Connection {
 		}		
 	}
 
-	public String getUuid() {
-		return uuid;
-	}
 }

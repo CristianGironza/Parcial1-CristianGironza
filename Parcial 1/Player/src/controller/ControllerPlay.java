@@ -7,24 +7,30 @@ import comunication.TCPConnection;
 import comunication.TCPConnection.ConnectionEvent;
 import view.ViewZone;
 
-public class ControllerChat implements ActionListener, ConnectionEvent {
+public class ControllerPlay implements ActionListener, ConnectionEvent {
 	
 	private ViewZone view;
 	TCPConnection connection;
 	
-	public ControllerChat(ViewZone v) {
+	public ControllerPlay(ViewZone v) {
 		view = v;
 		initView();
 	}
 
 	public void initView() {
-		//view.getBtnEnviar().addActionListener(this);
+		view.getMp().getDeal().addActionListener(this);
+		view.getMp().getNotdeal().addActionListener(this);
 		connection = TCPConnection.getInstance();
 		connection.addConnectionEvent(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(e.getSource().equals(view.getMp().getDeal())) {
+			
+		}else if(e.getSource().equals(view.getMp().getNotdeal())) {
+			
+		}
 //		if(e.getSource().equals(view.getBtnEnviar())) {
 //			Mensaje msj = new Mensaje(view.getTfEntrada().getText());
 //			connection.sendMessage(msj.toString());

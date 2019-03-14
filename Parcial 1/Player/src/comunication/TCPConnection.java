@@ -85,6 +85,10 @@ public class TCPConnection {
 		}
 	}
 	
+	public void setTurno(boolean turno) {
+		this.turno = turno;
+	}
+
 	public void sendMessage(String msj) {
 		emisor.enviarMensaje(msj);
 	}

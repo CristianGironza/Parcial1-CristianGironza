@@ -29,7 +29,8 @@ public class ControllerPlay implements ActionListener, ConnectionEvent {
 	public void actionPerformed(ActionEvent e) {
 		if(connection.isTurno()) {
 			if(e.getSource().equals(view.getMp().getDeal())) {
-				
+				connection.setTurno(false);
+				connection.sendMessage("sigo");
 			}else if(e.getSource().equals(view.getMp().getNotdeal())) {
 				
 			}
@@ -66,7 +67,13 @@ public class ControllerPlay implements ActionListener, ConnectionEvent {
 				view.getMp().getMy2card().setText(re[1]);
 			}
 		}else if(msj.contains("Turno")) {
-			JOptionPane.showMessageDialog(null, msj);
+			re = msj.split("Turno");
+			if(view.getPt().getIzq().getText().equals(re[1])||view.getPt().getDer().getText().equals(re[1])) {
+				JOptionPane.showMessageDialog(null, msj);
+			}else {
+				JOptionPane.showMessageDialog(null, "Es mi turno");
+				connection.setTurno(true);
+			}
 		}else {
 			if(view.getPt().getIzq().getText().equals("")) {
 				view.getPt().getIzq().setText(msj);

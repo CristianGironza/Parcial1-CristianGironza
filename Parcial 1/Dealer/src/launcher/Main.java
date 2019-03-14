@@ -29,6 +29,7 @@ public class Main implements ConnectionEvent {
 	public void onConnection() {
 		if(manager.getClient()==3) {
 			JOptionPane.showMessageDialog(null, "SALA LLENA");
+			manager.Start();
 		}
 	}
 

@@ -42,7 +42,6 @@ public class TCPconnection {
 				connection.defineListeners(listeners);
 				connection.init();
 				connections.add(connection);
-				//connections.put(connection.getUuid(), connection);
 				for(int i=0 ; i<listeners.size() ; i++) listeners.get(i).onConnection();
 			}
 		} catch (IOException e) {
@@ -98,10 +97,16 @@ public class TCPconnection {
 				repetida = false;
 			}
 		}
+		cartas.add(numero);
 		return numero;
 	}
 	
 	public void Start() {
-		
+		sendBroadcast("p"+GenerateCard());
+		sendBroadcast("p"+GenerateCard());
+		sendBroadcast("p"+GenerateCard());
+		for(int i=0;i<getClient();i++) {
+			sendDirectMessage(i, "m"+GenerateCard());
+		}
 	}
 }

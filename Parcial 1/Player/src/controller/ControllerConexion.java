@@ -12,6 +12,8 @@ public class ControllerConexion implements ActionListener, ConnectionEvent {
 	
 	private ViewConexion view;
 	private TCPConnection connection;
+	private String ip;
+	private int port;
 	
 	public ControllerConexion(ViewConexion view) {
 		this.view=view;
@@ -22,23 +24,20 @@ public class ControllerConexion implements ActionListener, ConnectionEvent {
 		view.getBtnConectar().addActionListener(this);
 		connection = TCPConnection.getInstance(0);
 		connection.addConnectionEvent(this);
+		ip="127.0.0.1";
+		port = 5000;
+				
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		if(event.getSource().equals(view.getBtnConectar())) {
-			String ip = view.getTfIP().getText();
-			int puerto = Integer.parseInt(view.getTfPuerto().getText());
-			System.out.println(ip);
-			System.out.println(puerto);
-			connection.connect(ip, puerto);
+			connection.connect(ip, port);
 		}
 	}
 
 	@Override
 	public void onConnection() {
-		//Desplegar las siguiente ventana
-		System.out.println("Conectados");
 		view.setVisible(false);
 		
 		ViewZone chat = new ViewZone();

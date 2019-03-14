@@ -31,8 +31,9 @@ public class Main implements ConnectionEvent {
 
 	@Override
 	public void onConnection() {
-		System.out.println("Clientes" +manager.getClient());
-		
+		if(manager.getClient()==3) {
+			System.out.println("listos para Jugar");
+		}
 	}
 
 	@Override

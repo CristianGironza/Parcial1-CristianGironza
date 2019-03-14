@@ -11,7 +11,6 @@ public class ControllerPlay implements ActionListener, ConnectionEvent {
 	
 	private ViewZone view;
 	TCPConnection connection;
-	
 	public ControllerPlay(ViewZone v) {
 		view = v;
 		initView();

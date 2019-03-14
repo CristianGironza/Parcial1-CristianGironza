@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.Map.Entry;
 
 public class TCPconnection {
@@ -15,6 +16,7 @@ public class TCPconnection {
 	private TCPconnection() {
 		if(listeners == null) listeners = new ArrayList<>();
 		connections = new HashMap<String, Connection>();
+		cartas = new ArrayList<String>();
 	}
 	
 	public synchronized static TCPconnection getInstance() {
@@ -29,6 +31,7 @@ public class TCPconnection {
 	private ServerSocket server;
 	private HashMap<String, Connection> connections;
 	private List<ConnectionEvent> listeners;
+	private List<String> cartas;
 	
 	
 	//Metodo del servidor
@@ -37,9 +40,7 @@ public class TCPconnection {
 			server = new ServerSocket(port);
 			
 			while(true) {
-				System.out.println("Esperando cliente");
 				Socket socket = server.accept();
-				System.out.println("Cliente conectado!");
 				Connection connection = new Connection(socket);
 				connection.defineListeners(listeners);
 				connection.init();
@@ -79,5 +80,30 @@ public class TCPconnection {
 
 	public void sendDirectMessage(String remitente, String destinatario, String mensaje) {
 		getConnectionById(destinatario).sendMessage(remitente+":"+mensaje);
+	}
+	
+	public String GenerateCard() {
+		String[] tipo = {"T,C,P,D"};
+		Random r = new Random();
+		boolean repetida = true;
+		String numero ="";
+		while(repetida) {
+			numero =""+(r.nextInt(13)+1);
+			if(numero.equals("11")) {
+				numero = "J";
+			}
+			if(numero.equals("12")) {
+				numero = "Q";
+			}
+			if(numero.equals("13")) {
+				numero = "k";
+			}
+			
+			numero=numero+tipo[r.nextInt(4)];
+			if(!cartas.contains(numero)) {
+				repetida = false;
+			}
+		}
+		return numero;
 	}
 }
